@@ -1,0 +1,30 @@
+# AI Investor v2 (EMA Crossover) — Python Dependencies
+
+# Broker & Market Data
+alpaca-py>=0.21.0          # Alpaca trading + options API
+yfinance>=0.2.40           # Free options chains + daily history (fallback)
+
+# Data / Math
+# numpy MUST stay on the 1.26 line: numpy 2.x links Apple's NEWLAPACK/ILP64
+# Accelerate symbols that only exist on macOS 13.3+, which breaks the app on
+# older Macs (e.g. the client's 2015/2016 MBP on Big Sur/Monterey). 1.26 wheels
+# bundle their own OpenBLAS and run on any macOS.
+numpy>=1.26,<2.0
+pandas>=2.2,<2.3
+
+# Scheduling
+APScheduler>=3.10.4
+
+# Database
+sqlalchemy>=2.0.30
+
+# Utilities
+python-dotenv>=1.0.0
+pytz>=2024.1
+
+# Logging
+loguru>=0.7.2
+
+# Web API (dashboard backend)
+fastapi>=0.111.0
+uvicorn>=0.30.0

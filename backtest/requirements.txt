@@ -1,0 +1,8 @@
+# Backtesting platform — Python dependencies (in addition to the live bot's requirements.txt).
+# Runs on the same interpreter as the live bot (system Python 3.14 here).
+
+pandas            # dataframes (shared with the live bot)
+numpy             # math (shared)
+pyarrow           # parquet cache for historical bars
+yfinance          # free historical daily bars + option chains (data + pricing validation)
+plotly>=6.0       # interactive 3D landscape + robustness charts (Phase 5)
