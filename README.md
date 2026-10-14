@@ -2,6 +2,33 @@
 
 An options-trading agent I built, measured and retired, plus the backtesting platform I built so the next strategy gets tested before it trades. Paper trading only. No real money, and nothing here is financial advice.
 
+![Backtest equity curve of the rules-based bot on 53 stocks, Jan 2020 to Oct 2026](docs/img/backtest-equity.png)
+
+*Output of `python backtest/run_backtest.py --universe` on data through Oct 13, 2026. Simulated trades on synthetic option prices, not live results.*
+
+This repo is a sanitized snapshot of private work from May to July 2026, published as one commit in October 2026. Earlier versions of the agent and the bot sit in two private repositories with 19 commits. Secrets and account identifiers were removed before publishing.
+
+## How it works
+
+The archived agent (left) passed each symbol through four models, and fixed risk rules had the last word. It lost money on paper, so I replaced it with plain rules (right) that the backtester can replay day by day.
+
+```mermaid
+flowchart LR
+  subgraph LLM["LLM agent, archived"]
+    direction TB
+    A1["Llama 3.3 70B on Groq<br/>free pre-screen"] --> A2["GPT-4o-mini<br/>news sentiment"]
+    A2 --> A3["Gemini 2.5 Flash<br/>batched sanity check"]
+    A3 --> A4["GPT-4o<br/>final call and ranking"]
+    A4 --> A5["Fixed Python risk rules<br/>no model can override them"]
+  end
+  subgraph RULES["Rules-based replacement, no LLM"]
+    direction TB
+    B1["9/21 EMA crossover<br/>on daily bars"] --> B2["ADX filter<br/>trend strength 25 or more"]
+    B2 --> B3["Buy a deep in-the-money option<br/>about 0.75 delta, about 75 days out"]
+    B3 --> B4["Exits: hard stop, partial take,<br/>Chandelier trail, exit at 21 days to expiry"]
+  end
+```
+
 ## What's in here
 
 **`llm-agent-v2/`: the multi-LLM agent (May to June 2026, archived)**
