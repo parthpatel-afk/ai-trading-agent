@@ -2,6 +2,8 @@
 
 An options-trading agent I built, measured and retired, plus the backtesting platform I built so the next strategy gets tested before it trades. Paper trading only. No real money, and nothing here is financial advice.
 
+![Tests](https://github.com/parthpatel-afk/ai-trading-agent/actions/workflows/tests.yml/badge.svg)
+
 ![Backtest equity curve of the rules-based bot on 53 stocks, Jan 2020 to Oct 2026](docs/img/backtest-equity.png)
 
 *Output of `python backtest/run_backtest.py --universe` on data through Oct 13, 2026. Simulated trades on synthetic option prices, not live results.*
