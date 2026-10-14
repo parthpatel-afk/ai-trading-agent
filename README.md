@@ -10,23 +10,19 @@ This repo is a sanitized snapshot of private work from May to July 2026, publish
 
 ## How it works
 
-The archived agent (left) passed each symbol through four models, and fixed risk rules had the last word. It lost money on paper, so I replaced it with plain rules (right) that the backtester can replay day by day.
+The archived agent passed each symbol through four models, and fixed Python risk rules had the last word. It lost money on paper, so I replaced it with plain rules that the backtester can replay day by day.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph LLM["LLM agent, archived"]
-    direction TB
-    A1["Llama 3.3 70B on Groq<br/>free pre-screen"] --> A2["GPT-4o-mini<br/>news sentiment"]
-    A2 --> A3["Gemini 2.5 Flash<br/>batched sanity check"]
-    A3 --> A4["GPT-4o<br/>final call and ranking"]
-    A4 --> A5["Fixed Python risk rules<br/>no model can override them"]
+    direction LR
+    A1["Llama 3.3 70B<br/>on Groq<br/>pre-screen"] --> A2["GPT-4o-mini<br/>sentiment"] --> A3["Gemini 2.5 Flash<br/>batched<br/>sanity check"] --> A4["GPT-4o<br/>final call"] --> A5["Fixed Python<br/>risk rules"]
   end
   subgraph RULES["Rules-based replacement, no LLM"]
-    direction TB
-    B1["9/21 EMA crossover<br/>on daily bars"] --> B2["ADX filter<br/>trend strength 25 or more"]
-    B2 --> B3["Buy a deep in-the-money option<br/>about 0.75 delta, about 75 days out"]
-    B3 --> B4["Exits: hard stop, partial take,<br/>Chandelier trail, exit at 21 days to expiry"]
+    direction LR
+    B1["9/21 EMA<br/>crossover"] --> B2["ADX filter<br/>25 or more"] --> B3["Buy a deep<br/>in-the-money<br/>option"] --> B4["Hard stop,<br/>partial take,<br/>Chandelier trail,<br/>time exit"]
   end
+  LLM ~~~ RULES
 ```
 
 ## What's in here
